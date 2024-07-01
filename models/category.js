@@ -1,5 +1,5 @@
-import { Schema, model } from "mongoose";
-import normalize from "normalize-mongoose";
+import { Schema, model, Types } from "mongoose";
+import { toJSON } from "@reis/mongoose-to-json"; //this will remove the _id to id when displaying 
 
 const categorySchema = new Schema({
     name: { type: String, required: true },
@@ -8,6 +8,6 @@ const categorySchema = new Schema({
     timestamps:true
 })
 
-categorySchema.plugin(normalize);
+categorySchema.plugin(toJSON);
 
 export const CategoryModel = model('Category', categorySchema);

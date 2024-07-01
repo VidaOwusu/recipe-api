@@ -26,9 +26,17 @@ export const getRecipes = async (req, res, next)=>{
 }
 
 //Update recipe
-export const patchRecipe = (req, res) => {
-    res.json(`Recipe with ID ${req.params.id} updated`);
+export const patchRecipe = async (req, res, next) => {
+   try {
+    //Update recipe by id
+    const updatedRecipe = await RecipeModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
+    //Return response
+   res.status(201).send(updatedRecipe);
+   } catch (error) {
+    next(error);
+   }
 }
+
 
 //Delete recipe
 export const deleteRecipe = async (req, res, next) => {
@@ -37,13 +45,18 @@ export const deleteRecipe = async (req, res, next) => {
     const deletedRecipe = await RecipeModel.findByIdAndDelete(req.params.id);
     //Return response
     res.json(deletedRecipe)
-    //  res.json(`Recipe with ID ${req.params.id} deleted`);
+   
    } catch (error) {
     next(error)
    }
 }
 
 //Get a particular recipe
-export const getRecipe = (req, res) => {
-    res.json(`Recipe with ID ${req.params.id} received`);
+export const getRecipe = async (req, res, next) => {
+   try {
+    const getARecipe = await RecipeModel.findById(req.params.id)
+    res.json(getARecipe)
+   } catch (error) {
+    next(error);
+   }
 }
