@@ -11,12 +11,14 @@ await mongoose.connect(process.env.MONGO_URL);
 //Create Express App
 const app = express();
 expressOasGenerator.handleResponses(app, {
-    tags:['categories', 'recipes'],
+    alwaysServeDocs: true,
+    tags: ['categories', 'recipes'],
     mongooseModels: mongoose.modelNames(),
 });
 
 //Apply middlewares
 app.use(express.json());
+app.use(express.static('uploads'));
 
 
 //Use routes
