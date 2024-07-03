@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors;' //this middleware is used to integrate the frontend and backend.
 import mongoose from "mongoose";
 import expressOasGenerator from "express-oas-generator";
 import recipeRouter from "./routes/recipe.js";
@@ -17,8 +18,9 @@ expressOasGenerator.handleResponses(app, {
 });
 
 //Apply middlewares
+app.use(cors());
 app.use(express.json());
-app.use(express.static('uploads'));
+app.use(express.static('uploads')); 
 
 
 //Use routes
