@@ -1,22 +1,26 @@
+import { json } from "express";
 import { RecipeModel } from "../models/recipe.js";
 
 //Get all recipes
 export const getRecipes = async (req, res, next) => {
    try {
-      if (req.query){
       //Get query params
-      const { limit, skip, filter } = req.query;
+      const { 
+         filter = "{}", 
+         sort = "{}",
+         fields = "{}",
+         limit = 10, 
+         skip = 0, 
+         } = req.query;
       //Get all recipes from database
       const allRecipes = await RecipeModel
-         .find(filter)
+         .find(JSON.parse(filter))
+         .sort(JSON.parse.sort)
+         .select(JSON.parse(fields))
          .limit(limit)
          .skip(skip);
       //Return all recipes as response
       res.json(allRecipes);
-      }else{
-         const allRecipes = await RecipeModel.find();
-         res.json(allRecipes);
-      }
    } catch (error) {
       next(error);
    }

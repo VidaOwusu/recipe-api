@@ -1,5 +1,5 @@
 import express from "express";
-import cors from 'cors;' //this middleware is used to integrate the frontend and backend.
+import cors from 'cors'; //this middleware is used to integrate the frontend and backend.
 import mongoose from "mongoose";
 import expressOasGenerator from "express-oas-generator";
 import recipeRouter from "./routes/recipe.js";
