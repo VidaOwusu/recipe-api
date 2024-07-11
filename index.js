@@ -3,6 +3,7 @@ import cors from 'cors'; //this middleware is used to integrate the frontend and
 import mongoose from "mongoose";
 import expressOasGenerator from "express-oas-generator";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import recipeRouter from "./routes/recipe.js";
 import categoryRouter from "./routes/category.js";
 import userRouter from "./routes/user.js";
@@ -25,9 +26,12 @@ app.use(express.json());
 app.use(express.static('uploads')); 
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
+      resave: false,
+     saveUninitialized: true,
+     //cookie: { secure: true }
+     store:MongoStore.create({
+        mongoUrl: process.env.MONGO_URL
+     })
 }));
 
 

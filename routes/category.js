@@ -9,7 +9,7 @@ const categoryRouter = Router();
 
 //Define routes
 categoryRouter.get('/categories', getCategories);
-categoryRouter.post('/categories',checkUserSession, remoteUpload.single('image'), postCategory);
+categoryRouter.post('/categories', checkUserSession, remoteUpload.single('image'), postCategory);
 
 //Export router
 export default categoryRouter;
